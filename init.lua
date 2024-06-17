@@ -6,7 +6,20 @@ vim.opt.relativenumber = true
 -- Init function to setup somethings
 local function my_init()
   vim.cmd 'hi CursorLine guibg=NONE guifg=NONE' -- Hide cursor line/bar
-  vim.cmd 'hi CursorLineNR guibg=NONE guifg=NONE' -- Hide background of line numbers
+  vim.cmd 'hi CursorLineNR guibg=NONE guifg=NONE'
+  vim.cmd 'hi LineNr guibg=NONE' -- Hide background of line numbers
+  vim.cmd 'hi GitSignsAdd guibg=NONE'
+  vim.cmd 'hi GitSignsChange guibg=NONE'
+  vim.cmd 'hi GitSignsDelete guibg=NONE'
+  vim.cmd 'hi GitGutterChange guibg=NONE'
+  vim.cmd 'hi GitGutterAdd guibg=NONE'
+  vim.cmd 'hi GitGutterChangeLine guibg=NONE'
+  vim.cmd 'hi GitGutterChangeLineNr guibg=NONE'
+  vim.cmd 'hi DiagnosticError guibg=NONE'
+  vim.cmd 'hi DiagnosticSignError guibg=NONE'
+  vim.cmd 'hi DiagnosticSignHint guibg=NONE'
+  vim.cmd 'hi DiagnosticSignInfo guibg=NONE'
+  vim.cmd 'hi DiagnosticSignWarn guibg=NONE'
   vim.cmd 'set nocursorline'
   vim.cmd 'set nowrap'
 end
