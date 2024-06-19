@@ -16,6 +16,8 @@ keymap('n', '*', '*zz', opts)
 keymap('n', '#', '#zz', opts)
 keymap('n', 'g*', 'g*zz', opts)
 keymap('n', 'g#', 'g#zz', opts)
+keymap('n', '<C-d>', '<C-d>zz')
+keymap('n', '<C-u>', '<C-u>zz')
 
 -- Stay in indent mode
 keymap('v', '<', '<gv', opts)
