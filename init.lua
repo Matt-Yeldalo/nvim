@@ -25,8 +25,10 @@ local function my_init()
 end
 vim.api.nvim_create_autocmd('VimEnter', { callback = my_init })
 -- Tab size
-vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.expandtab = true
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
 -- Don't show the mode, since it's already in the status line
@@ -396,7 +398,7 @@ require('lazy').setup({
       {
         '<leader>f',
         function()
-          require('conform').format { async = true, lsp_fallback = true }
+          require('conform').format { async = true, lsp_format = "fallback" }
         end,
         mode = '',
         desc = '[F]ormat buffer',
@@ -541,6 +543,7 @@ require('lazy').setup({
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
+    version = false,
     config = function()
       -- Better Around/Inside textobjects
       -- Examples:
