@@ -80,7 +80,7 @@ vim.opt.scrolloff = 10
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 -- KEYMAPS
-require 'custom.keymaps'
+require 'matt.keymaps'
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
@@ -591,10 +591,10 @@ require('lazy').setup({
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
-  -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
+  -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/matt/*.lua`
   --    This is the easiest way to modularize your config.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
-  { import = 'custom.plugins' }, -- 'lua/custom/plugins/*'
+  { import = 'matt.plugins' }, -- 'lua/matt/*'
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
