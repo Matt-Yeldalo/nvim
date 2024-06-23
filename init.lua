@@ -470,13 +470,15 @@ require('lazy').setup({
     end,
   },
   -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.lint',
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'matt.plugins.harpoon',
+  require 'matt.plugins.indent-blankline',
+  require 'matt.plugins.lualine',
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/matt/*.lua`
-  { import = 'matt.plugins' }, -- 'lua/matt/*'
+  -- { import = 'matt.plugins' }, -- 'lua/matt/*'
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the

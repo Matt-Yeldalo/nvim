@@ -1,29 +1,16 @@
-local devicons = require 'nvim-web-devicons'
 return {
   {
     'b0o/incline.nvim',
     config = function()
       require('incline').setup {
-        window = {
-          placement = {
-            vertical = 'bottom',
-            horizontal = 'center',
-          },
-          padding = 0,
-          margin = { vertical = 0, horizontal = 0 },
-        },
-        hide = {
-          cursorline = true,
-        },
         render = function(props)
           local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ':t')
-          if filename == '' then
-            filename = '[No Name]'
-          end
-          local ft_icon, ft_color = devicons.get_icon_color(filename)
+          local ft_icon, ft_color = require('nvim-web-devicons').get_icon_color(filename)
+          local modified = vim.bo[props.buf].modified and 'bold,italic' or 'bold'
 
           local function get_git_diff()
-            local icons = { removed = ' ', changed = ' ', added = ' ' }
+            local icons = { removed = '', changed = '', added = '' }
+            icons['changed'] = icons.modified
             local signs = vim.b[props.buf].gitsigns_status_dict
             local labels = {}
             if signs == nil then
@@ -35,13 +22,12 @@ return {
               end
             end
             if #labels > 0 then
-              table.insert(labels, { '| ' })
+              table.insert(labels, { '┊ ' })
             end
             return labels
           end
-
           local function get_diagnostic_label()
-            local icons = { error = ' ', warn = ' ', info = ' ', hint = ' ' }
+            local icons = { error = '', warn = '', info = '', hint = '' }
             local label = {}
 
             for severity, icon in pairs(icons) do
@@ -51,55 +37,19 @@ return {
               end
             end
             if #label > 0 then
-              table.insert(label, { '| ' })
+              table.insert(label, { '┊ ' })
             end
             return label
           end
 
-          local function get_harpoon_items()
-            local harpoon = require 'harpoon'
-            local marks = harpoon:list().items
-            local current_file_path = vim.fn.expand '%:p:.'
-            local label = {}
-
-            for id, item in ipairs(marks) do
-              if item.value == current_file_path then
-                table.insert(label, { id .. ' ', guifg = '#FFFFFF', gui = 'bold' })
-              else
-                table.insert(label, { id .. ' ', guifg = '#434852' })
-              end
-            end
-
-            if #label > 0 then
-              table.insert(label, 1, { '󰛢 ', guifg = '#61AfEf' })
-              table.insert(label, { '| ' })
-            end
-            return label
-          end
-
-          local function get_file_name()
-            local label = {}
-            table.insert(label, { (ft_icon or '') .. ' ', guifg = ft_color, guibg = 'none' })
-            table.insert(label, { vim.bo[props.buf].modified and ' ' or '', guifg = '#d19a66' })
-            table.insert(label, { filename, gui = vim.bo[props.buf].modified and 'bold,italic' or 'bold' })
-            if not props.focused then
-              label['group'] = 'BufferInactive'
-            end
-
-            return label
-          end
-
-          return {
-            { '', guifg = '#0e0e0e' },
-            {
-              { get_diagnostic_label() },
-              { get_git_diff() },
-              { get_harpoon_items() },
-              { get_file_name() },
-              guibg = '#0e0e0e',
-            },
-            { '', guifg = '#0e0e0e' },
+          local buffer = {
+            { get_diagnostic_label() },
+            { get_git_diff() },
+            { (ft_icon or '') .. ' ', guifg = ft_color, guibg = 'none' },
+            { filename .. ' ', gui = modified },
+            { '┊  ' .. vim.api.nvim_win_get_number(props.win), group = 'DevIconWindows' },
           }
+          return buffer
         end,
       }
     end,
