@@ -477,6 +477,7 @@ require('lazy').setup({
   require 'matt.plugins.harpoon',
   require 'matt.plugins.indent-blankline',
   require 'matt.plugins.lualine',
+  require 'matt.plugins.nvim-java',
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/matt/*.lua`
   -- { import = 'matt.plugins' }, -- 'lua/matt/*'
 }, {
