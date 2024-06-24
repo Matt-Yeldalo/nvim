@@ -474,10 +474,10 @@ require('lazy').setup({
   require 'kickstart.plugins.lint',
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
-  require 'matt.plugins.harpoon',
   require 'matt.plugins.indent-blankline',
   require 'matt.plugins.lualine',
   require 'matt.plugins.nvim-java',
+  require 'matt.plugins.harpoon',
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/matt/*.lua`
   -- { import = 'matt.plugins' }, -- 'lua/matt/*'
 }, {
