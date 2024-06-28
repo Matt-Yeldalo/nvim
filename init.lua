@@ -233,6 +233,11 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         -- But for many setups, the LSP (`tsserver`) will work just fine
         tsserver = {},
+        solargraph = {},
+        rubocop = {
+          cmd = {'bundle', 'exec', 'rubocop', '--lsp'},
+          root_dir = require('lspconfig').util.root_pattern("Gemfile", ".git", "."),
+        },
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
@@ -292,6 +297,7 @@ require('lazy').setup({
       notify_on_error = true,
       formatters_by_ft = {
         lua = { 'stylua' },
+        ruby = { 'rubyocop' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         -- You can use a sub-list to tell conform to run *until* a formatter
@@ -320,12 +326,12 @@ require('lazy').setup({
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
         },
       },
       'saadparwaiz1/cmp_luasnip',
@@ -362,7 +368,7 @@ require('lazy').setup({
           ['<C-y>'] = cmp.mapping.confirm { select = true },
           -- If you prefer more traditional completion keymaps,
           -- you can uncomment the following lines
-          ['<CR>'] = cmp.mapping.confirm { select = true },
+          ['<Tab>'] = cmp.mapping.confirm { select = true },
           --['<Tab>'] = cmp.mapping.select_next_item(),
           --['<S-Tab>'] = cmp.mapping.select_prev_item(),
           -- Manually trigger a completion from nvim-cmp.
