@@ -1,4 +1,5 @@
 require 'matt.remaps'
+require 'matt.options'
 
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
