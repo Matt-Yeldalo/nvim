@@ -1,12 +1,13 @@
 vim.g.have_nerd_font = true
-vim.opt.number = true
-vim.opt.nu = true
-vim.opt.termguicolors = true
-vim.opt.relativenumber = true
 vim.o.cmdheight = 0
 vim.o.cursorline = false
 vim.o.wrap = false
 vim.o.laststatus = 3
+
+vim.opt.number = true
+vim.opt.nu = true
+vim.opt.termguicolors = true
+vim.opt.relativenumber = true
 -- Tab size
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
@@ -45,5 +46,10 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 8
+vim.opt.updatetime = 50
+vim.opt.colorcolumn = "80"
 vim.opt.hlsearch = true
+vim.opt.incsearch = true
+vim.opt.swapfile = false
+vim.opt.undofile = true
 vim.opt.clipboard = 'unnamedplus'

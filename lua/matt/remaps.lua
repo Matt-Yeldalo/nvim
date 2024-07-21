@@ -1,19 +1,44 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+
 local keymap = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
-keymap('n', '<C-i>', '<C-i>', opts)
+-- GOOD STUFF -- 
 
--- Better window navigation
--- keymap('n', '<m-h>', '<C-w>h', opts)
--- keymap('n', '<m-j>', '<C-w>j', opts)
--- keymap('n', '<m-k>', '<C-w>k', opts)
--- keymap('n', '<m-l>', '<C-w>l', opts)
--- keymap('n', '<m-tab>', '<c-6>', opts)
+-- Chef's kiss - When pasting over word x, do not place x into buffer
+keymap('x', 'p', [["_dP]])
 
-keymap('n', 'n', 'nzz', opts)
-keymap('n', 'N', 'Nzz', opts)
+-- Chef's kiss - When pasting over word x, do not place x into buffer
+-- Chef's kiss - When pasting over word x, do not place x into buffer
+-- Set ; -> : for faster commands
+keymap('n', ';', ':')
+
+-- more good
+keymap({ 'n', 'o', 'x' }, '<s-h>', '^', opts)
+keymap({ 'n', 'o', 'x' }, '<s-l>', 'g_', opts)
+
+-- Prime
+keymap('v', 'J', ":m '>+1<CR>gv=gv", {desc = 'Move current line down'})
+keymap('v', 'K', ":m '<-2<CR>gv=gv", {desc = 'Move current line up'})
+
+keymap('n', 'J', 'mzJ`z', {desc = 'Remove space from next line'})
+
+keymap({'n', 'v'}, '<leader>y', [["+y"]])
+keymap('n', '<leader>Y', [["+Y"]])
+
+keymap({'n', 'v'}, '<leader>d', [["_d"]])
+
+keymap("n", "<leader>%g", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+  {desc = 'Replace all under cursor'})
+
+-- Stay in indent mode
+keymap('v', '<', '<gv', opts)
+keymap('v', '>', '>gv', opts)
+
+-- center after movement commands
+keymap('n', 'n', 'nzzzv', opts)
+keymap('n', 'N', 'Nzzzv', opts)
 keymap('n', '*', '*zz', opts)
 keymap('n', '#', '#zz', opts)
 keymap('n', 'g*', 'g*zz', opts)
@@ -21,11 +46,17 @@ keymap('n', 'g#', 'g#zz', opts)
 keymap('n', '<C-d>', '<C-d>zz')
 keymap('n', '<C-u>', '<C-u>zz')
 
--- Stay in indent mode
-keymap('v', '<', '<gv', opts)
-keymap('v', '>', '>gv', opts)
+vim.api.nvim_set_keymap('t', '<C-;>', '<C-\\><C-n>', opts)
 
-keymap('x', 'p', [["_dP]])
+keymap('n', '<Esc>', '<cmd>nohlsearch<CR>')
+
+-- keymap('n', '<C-i>', '<C-i>', opts)
+
+-- Diagnostic keymaps
+keymap('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
+keymap('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
+keymap('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
+keymap('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 vim.cmd [[:amenu 10.100 mousemenu.Goto\ Definition <cmd>lua vim.lsp.buf.definition()<CR>]]
 vim.cmd [[:amenu 10.110 mousemenu.References <cmd>lua vim.lsp.buf.references()<CR>]]
@@ -34,40 +65,11 @@ vim.cmd [[:amenu 10.110 mousemenu.References <cmd>lua vim.lsp.buf.references()<C
 keymap('n', '<RightMouse>', '<cmd>:popup mousemenu<CR>')
 keymap('n', '<Tab>', '<cmd>:popup mousemenu<CR>')
 
--- more good
-keymap({ 'n', 'o', 'x' }, '<s-h>', '^', opts)
-keymap({ 'n', 'o', 'x' }, '<s-l>', 'g_', opts)
-
--- tailwind bearable to work with
-keymap({ 'n', 'x' }, 'j', 'gj', opts)
-keymap({ 'n', 'x' }, 'k', 'gk', opts)
-keymap('n', '<leader>w', ':lua vim.wo.wrap = not vim.wo.wrap<CR>', opts)
-
-vim.api.nvim_set_keymap('t', '<C-;>', '<C-\\><C-n>', opts)
-
-keymap('n', '<Esc>', '<cmd>nohlsearch<CR>')
--- Set ; -> : for faster commands
-keymap('n', ';', ':')
-
--- Diagnostic keymaps
-keymap('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
-keymap('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
-keymap('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
-keymap('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
---
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
 keymap('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
--- Keybinds to make split navigation easier.
---  Use CTRL+<hjkl> to switch between windows
---
---  See `:help wincmd` for a list of all window commands
+-- Window Navigation
 keymap('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 keymap('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 keymap('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 keymap('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
