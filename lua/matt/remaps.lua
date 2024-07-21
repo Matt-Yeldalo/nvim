@@ -9,8 +9,6 @@ local opts = { noremap = true, silent = true }
 -- Chef's kiss - When pasting over word x, do not place x into buffer
 keymap('x', 'p', [["_dP]])
 
--- Chef's kiss - When pasting over word x, do not place x into buffer
--- Chef's kiss - When pasting over word x, do not place x into buffer
 -- Set ; -> : for faster commands
 keymap('n', ';', ':')
 
@@ -24,10 +22,10 @@ keymap('v', 'K', ":m '<-2<CR>gv=gv", {desc = 'Move current line up'})
 
 keymap('n', 'J', 'mzJ`z', {desc = 'Remove space from next line'})
 
-keymap({'n', 'v'}, '<leader>y', [["+y"]])
-keymap('n', '<leader>Y', [["+Y"]])
+keymap({'n', 'v'}, '<leader>y', [["+y"]], {desc = 'Yank next word'})
+keymap('n', '<leader>Y', [["+Y"]], {desc = 'Yank next line'})
 
-keymap({'n', 'v'}, '<leader>d', [["_d"]])
+keymap({'n', 'v'}, '<leader>d', [["_d"]], {desc = 'Delete && !No Buf'})
 
 keymap("n", "<leader>%g", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
   {desc = 'Replace all under cursor'})
