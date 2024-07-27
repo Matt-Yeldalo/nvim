@@ -47,7 +47,7 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 8
 vim.opt.updatetime = 50
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = "120"
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
 vim.opt.swapfile = false
