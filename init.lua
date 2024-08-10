@@ -241,6 +241,17 @@ require('lazy').setup({
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
       local servers = {
+        zls = {
+          cmd = {"/home/matt/.zls/zls"},
+          root_dir = require("lspconfig.util").root_pattern(".git", "build.zig", "zls.json"),
+          settings = {
+            zls = {
+              enable_inlay_hints = true,
+              enable_snippets = true,
+              warn_style = true
+            }
+          }
+        },
         clangd = {},
         tsserver = {},
         lua_ls = {
@@ -312,6 +323,9 @@ require('lazy').setup({
         ruby = { 'rubocop' },
         javascript = { { 'prettierd', 'prettier' } },
         c = { 'clangd' },
+        markdown = {'markdownlint'},
+        html = {'htmlbeautifier'},
+        erb = {'erb-formatter'}
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -425,50 +439,6 @@ require('lazy').setup({
           { name = 'path' },
         },
       }
-    end,
-  },
-  {
-    'catppuccin/nvim',
-    name = 'catppuccin',
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require('catppuccin').setup {
-        no_italic = false,
-        term_colors = true,
-        transparent_background = true,
-        styles = {
-          comments = {},
-          conditionals = {},
-          loops = {},
-          functions = {},
-          keywords = {},
-          strings = {},
-          variables = {},
-          numbers = {},
-          booleans = {},
-          properties = {},
-          types = {},
-        },
-        color_overrides = {
-          mocha = {
-            base = '#000000',
-            mantle = '#000000',
-            crust = '#000000',
-          },
-        },
-        integrations = {
-          telescope = {
-            enabled = true,
-            style = 'nvchad',
-          },
-          dropbar = {
-            enabled = true,
-            color_mode = true,
-          },
-        },
-      }
-      vim.cmd [[colorscheme catppuccin-mocha]]
     end,
   },
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
