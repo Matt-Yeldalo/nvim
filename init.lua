@@ -241,6 +241,11 @@ require('lazy').setup({
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
       local servers = {
+        ruby_lsp ={
+          filetypes = {'rb', 'ruby'},
+          root_dir = require('lspconfig.util').root_pattern("Gemfile", ".git"),
+        },
+        rubocop = {},
         zls = {
           cmd = {"/home/matt/.zls/zls"},
           root_dir = require("lspconfig.util").root_pattern(".git", "build.zig", "zls.json"),
@@ -320,7 +325,7 @@ require('lazy').setup({
       -- end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        ruby = { 'rubocop' },
+        ruby = { 'ruby_lsp' },
         javascript = { { 'prettierd', 'prettier' } },
         c = { 'clangd' },
         markdown = {'markdownlint'},
