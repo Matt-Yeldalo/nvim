@@ -241,11 +241,12 @@ require('lazy').setup({
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
       local servers = {
-        ruby_lsp ={
-          filetypes = {'rb', 'ruby'},
-          root_dir = require('lspconfig.util').root_pattern("Gemfile", ".git"),
-        },
+        -- ruby_lsp ={
+        --   filetypes = {'rb', 'ruby'},
+        --   root_dir = require('lspconfig.util').root_pattern("Gemfile", ".git"),
+        -- },
         rubocop = {},
+        html = {},
         zls = {
           cmd = {"/home/matt/.zls/zls"},
           root_dir = require("lspconfig.util").root_pattern(".git", "build.zig", "zls.json"),
@@ -258,7 +259,7 @@ require('lazy').setup({
           }
         },
         clangd = {},
-        tsserver = {},
+        ts_ls = {},
         lua_ls = {
           -- cmd = {},
           -- filetypes = {},
@@ -325,12 +326,13 @@ require('lazy').setup({
       -- end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        ruby = { 'ruby_lsp' },
+        ruby = { 'rubocop' },
         javascript = { { 'prettierd', 'prettier' } },
         c = { 'clangd' },
         markdown = {'markdownlint'},
         html = {'htmlbeautifier'},
-        erb = {'erb-formatter'}
+        erb = {'erb-formatter'},
+        eruby = {'erb-formatter'}
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -377,6 +379,9 @@ require('lazy').setup({
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
+
+      luasnip.filetype_extend('erb', {'html'})
+      luasnip.filetype_extend('eruby', {'html'})
 
       cmp.setup {
         snippet = {
