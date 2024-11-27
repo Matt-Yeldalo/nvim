@@ -341,7 +341,7 @@ require('lazy').setup({
       -- end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        ruby = { 'ruby_lsp' },
+        ruby = { 'rubocop' },
         javascript = { { 'prettierd', 'prettier' } },
         c = { 'clangd' },
         markdown = { 'markdownlint' },
@@ -397,6 +397,9 @@ require('lazy').setup({
       local luasnip = require 'luasnip'
       luasnip.filetype_extend('eruby', { 'html' })
       luasnip.config.setup {}
+
+      luasnip.filetype_extend('erb', {'html'})
+      luasnip.filetype_extend('eruby', {'html'})
 
       cmp.setup {
         snippet = {
