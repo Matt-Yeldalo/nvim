@@ -1,3 +1,4 @@
+vim.diagnostic.config({virtual_text = false})
 vim.g.have_nerd_font = true
 vim.o.cmdheight = 0
 vim.o.cursorline = false
