@@ -241,24 +241,40 @@ require('lazy').setup({
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
       local servers = {
-        ruby_lsp ={
-          filetypes = {'rb', 'ruby'},
-          root_dir = require('lspconfig.util').root_pattern("Gemfile", ".git"),
+        solargraph = {
+          filetypes = { 'rb', 'ruby' },
+          cmd = { os.getenv 'HOME' .. '/.rbenv/shims/solargraph', 'stdio' },
+          root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git', '.'),
+          settings = {
+            solargraph = {
+              autoformat = true,
+              completion = true,
+              diagnostic = true,
+              folding = true,
+              references = true,
+              rename = true,
+              symbols = true,
+            },
+          },
         },
-        rubocop = {},
+        rubocop = {
+          filetypes = { 'rb', 'ruby' },
+          cmd = { 'bundle', 'exec', 'rubocop', '--lsp' },
+          root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git', '.'),
+        },
         zls = {
-          cmd = {"/home/matt/.zls/zls"},
-          root_dir = require("lspconfig.util").root_pattern(".git", "build.zig", "zls.json"),
+          cmd = { '/home/matt/.zls/zls' },
+          root_dir = require('lspconfig.util').root_pattern('.git', 'build.zig', 'zls.json'),
           settings = {
             zls = {
               enable_inlay_hints = true,
               enable_snippets = true,
-              warn_style = true
-            }
-          }
+              warn_style = true,
+            },
+          },
         },
         clangd = {},
-        tsserver = {},
+        ts_ls = {},
         lua_ls = {
           -- cmd = {},
           -- filetypes = {},
@@ -328,9 +344,12 @@ require('lazy').setup({
         ruby = { 'ruby_lsp' },
         javascript = { { 'prettierd', 'prettier' } },
         c = { 'clangd' },
-        markdown = {'markdownlint'},
-        html = {'htmlbeautifier'},
-        erb = {'erb-formatter'}
+        markdown = { 'markdownlint' },
+        html = { 'htmlbeautifier' },
+        erb = { 'htmlbeautifier' },
+        eruby = { 'htmlbeautifier' },
+        css = { 'cssls' },
+        scss = { 'cssls' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -376,6 +395,7 @@ require('lazy').setup({
       -- See `:help cmp`
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
+      luasnip.filetype_extend('eruby', { 'html' })
       luasnip.config.setup {}
 
       cmp.setup {
