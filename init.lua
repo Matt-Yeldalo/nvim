@@ -310,6 +310,7 @@ require('lazy').setup({
           filetypes = { 'rb', 'ruby' },
           cmd = { os.getenv 'HOME' .. '/.rbenv/shims/solargraph', 'stdio' },
           root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git', '.'),
+          mason = false,
           settings = {
             solargraph = {
               autoformat = true,
@@ -323,6 +324,7 @@ require('lazy').setup({
           },
         },
         rubocop = {
+          mason = false,
           filetypes = { 'rb', 'ruby' },
           cmd = { 'bundle', 'exec', 'rubocop', '--lsp' },
           root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git', '.'),
@@ -408,6 +410,7 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         ruby = { 'rubocop' },
+        rb = {'rubocop'},
         javascript = { { 'prettierd', 'prettier' } },
         c = { 'clangd' },
         markdown = { 'markdownlint' },
