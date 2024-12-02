@@ -37,7 +37,7 @@ require('lazy').setup({
       },
     },
   },
-  { -- Useful plugin to show you pending keybinds.
+  {                     -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
@@ -80,7 +80,7 @@ require('lazy').setup({
 
       -- Document existing key chains
       spec = {
-        { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
+        { '<leader>c', group = '[C]ode',     mode = { 'n', 'x' } },
         { '<leader>d', group = '[D]ocument' },
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
@@ -110,16 +110,16 @@ require('lazy').setup({
         end,
       },
       { 'nvim-telescope/telescope-ui-select.nvim' },
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
     },
     config = function()
       require('telescope').setup {
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
-        -- pickers = {}
+        defaults = {
+          mappings = {
+            i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+          },
+        },
+        pickers = {},
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -182,7 +182,7 @@ require('lazy').setup({
       },
     },
   },
-  { 'Bilal2453/luvit-meta', lazy = true },
+  { 'Bilal2453/luvit-meta',  lazy = true },
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
@@ -194,8 +194,8 @@ require('lazy').setup({
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
-      { 'folke/neodev.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',       opts = {} },
+      { 'folke/neodev.nvim',       opts = {} },
 
       -- Allows extra capabilities provided by nvim-cmp
       'hrsh7th/cmp-nvim-lsp',
@@ -293,14 +293,14 @@ require('lazy').setup({
       })
 
       -- Change diagnostic symbols in the sign column (gutter)
-      -- if vim.g.have_nerd_font then
-      --   local signs = { ERROR = '', WARN = '', INFO = '', HINT = '' }
-      --   local diagnostic_signs = {}
-      --   for type, icon in pairs(signs) do
-      --     diagnostic_signs[vim.diagnostic.severity[type]] = icon
-      --   end
-      --   vim.diagnostic.config { signs = { text = diagnostic_signs } }
-      -- end
+      if vim.g.have_nerd_font then
+        local signs = { ERROR = '', WARN = '', INFO = '', HINT = '' }
+        local diagnostic_signs = {}
+        for type, icon in pairs(signs) do
+          diagnostic_signs[vim.diagnostic.severity[type]] = icon
+        end
+        vim.diagnostic.config { signs = { text = diagnostic_signs } }
+      end
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
@@ -326,7 +326,7 @@ require('lazy').setup({
         rubocop = {
           mason = false,
           filetypes = { 'rb', 'ruby' },
-          cmd = { 'bundle', 'exec', 'rubocop', '--lsp' },
+          cmd = { os.getenv 'HOME' .. '/.rbenv/shims/rubocop', '--lsp' },
           root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git', '.'),
         },
         zls = {
@@ -408,9 +408,9 @@ require('lazy').setup({
       --   }
       -- end,
       formatters_by_ft = {
-        lua = { 'stylua' },
+        lua = { 'lua_ls' },
         ruby = { 'rubocop' },
-        rb = {'rubocop'},
+        rb = { 'rubocop' },
         javascript = { { 'prettierd', 'prettier' } },
         c = { 'clangd' },
         markdown = { 'markdownlint' },
@@ -464,11 +464,10 @@ require('lazy').setup({
       -- See `:help cmp`
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
-      luasnip.filetype_extend('eruby', { 'html' })
       luasnip.config.setup {}
-
-      luasnip.filetype_extend('erb', {'html'})
-      luasnip.filetype_extend('eruby', {'html'})
+      luasnip.filetype_extend('eruby', { 'html' })
+      luasnip.filetype_extend('erb', { 'html' })
+      luasnip.filetype_extend('eruby', { 'html' })
 
       cmp.setup {
         snippet = {
@@ -611,7 +610,7 @@ require('lazy').setup({
   require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
-  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'kickstart.plugins.gitsigns',
   { import = 'matt.plugins' },
 }, {
   ui = {
