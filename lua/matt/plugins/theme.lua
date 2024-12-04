@@ -8,9 +8,11 @@ return {
   config = function()
     require(mod).setup {
       dimInactive = true,
+      commentStyle = { italic = false },
+      keywordStyle = { italic = false },
       background = {
-        dark = "wave" -- wave | dragon
-      }
+        dark = 'dragon', -- wave | dragon
+      },
     }
     vim.cmd('colorscheme ' .. scheme)
   end,
