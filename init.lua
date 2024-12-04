@@ -408,15 +408,15 @@ require('lazy').setup({
       --   }
       -- end,
       formatters_by_ft = {
-        lua = { 'lua_ls' },
+        lua = { 'stylua' },
         ruby = { 'rubocop' },
         rb = { 'rubocop' },
         javascript = { { 'prettierd', 'prettier' } },
         c = { 'clangd' },
         markdown = { 'markdownlint' },
         html = { 'htmlbeautifier' },
-        erb = { 'htmlbeautifier' },
-        eruby = { 'htmlbeautifier' },
+        erb = { 'erblint' },
+        eruby = { 'erblint' },
         css = { 'cssls' },
         scss = { 'cssls' },
         -- Conform can also run multiple formatters sequentially
