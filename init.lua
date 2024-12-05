@@ -1,6 +1,5 @@
 require 'matt.remaps'
 require 'matt.options'
-require 'matt.statusline'
 
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
@@ -38,7 +37,7 @@ require('lazy').setup({
       },
     },
   },
-  {                     -- Useful plugin to show you pending keybinds.
+  { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
@@ -81,7 +80,7 @@ require('lazy').setup({
 
       -- Document existing key chains
       spec = {
-        { '<leader>c', group = '[C]ode',     mode = { 'n', 'x' } },
+        { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
         { '<leader>d', group = '[D]ocument' },
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
@@ -111,7 +110,7 @@ require('lazy').setup({
         end,
       },
       { 'nvim-telescope/telescope-ui-select.nvim' },
-      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
       require('telescope').setup {
@@ -171,19 +170,19 @@ require('lazy').setup({
   },
 
   -- LSP Plugins
-  {
-    -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
-    -- used for completion, annotations and signatures of Neovim apis
-    'folke/lazydev.nvim',
-    ft = 'lua',
-    opts = {
-      library = {
-        -- Load luvit types when the `vim.uv` word is found
-        { path = 'luvit-meta/library', words = { 'vim%.uv' } },
-      },
-    },
-  },
-  { 'Bilal2453/luvit-meta',  lazy = true },
+  -- {
+  --   -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
+  --   -- used for completion, annotations and signatures of Neovim apis
+  --   'folke/lazydev.nvim',
+  --   ft = 'lua',
+  --   opts = {
+  --     library = {
+  --       -- Load luvit types when the `vim.uv` word is found
+  --       { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+  --     },
+  --   },
+  -- },
+  { 'Bilal2453/luvit-meta', lazy = true },
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
@@ -195,8 +194,8 @@ require('lazy').setup({
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim',       opts = {} },
-      { 'folke/neodev.nvim',       opts = {} },
+      { 'j-hui/fidget.nvim', opts = {} },
+      { 'folke/neodev.nvim', opts = {} },
 
       -- Allows extra capabilities provided by nvim-cmp
       'hrsh7th/cmp-nvim-lsp',
@@ -308,10 +307,10 @@ require('lazy').setup({
 
       local servers = {
         solargraph = {
+          mason = false,
           filetypes = { 'rb', 'ruby' },
           cmd = { os.getenv 'HOME' .. '/.rbenv/shims/solargraph', 'stdio' },
           root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git', '.'),
-          mason = false,
           settings = {
             solargraph = {
               autoformat = true,
@@ -327,7 +326,7 @@ require('lazy').setup({
         rubocop = {
           mason = false,
           filetypes = { 'rb', 'ruby' },
-          cmd = { os.getenv 'HOME' .. '/.rbenv/shims/rubocop', '--lsp' },
+          cmd = { os.getenv 'HOME' .. '/.rbenv/shims/rubocop' },
           root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git', '.'),
         },
         zls = {
@@ -397,17 +396,12 @@ require('lazy').setup({
       },
     },
     opts = {
+      formatters = {
+        rubocop = {
+          command = os.getenv 'HOME' .. '/.rbenv/shims/rubocop/bin/rubocop',
+        },
+      },
       notify_on_error = false,
-      -- format_on_save = function(bufnr)
-      --   -- Disable "format_on_save lsp_fallback" for languages that don't
-      --   -- have a well standardized coding style. You can add additional
-      --   -- languages here or re-enable it for the disabled ones.
-      --   local disable_filetypes = { c = true, cpp = true }
-      --   return {
-      --     timeout_ms = 500,
-      --     lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
-      --   }
-      -- end,
       formatters_by_ft = {
         lua = { 'stylua' },
         ruby = { 'rubocop' },
@@ -420,6 +414,16 @@ require('lazy').setup({
         eruby = { 'erblint' },
         css = { 'cssls' },
         scss = { 'cssls' },
+        -- format_on_save = function(bufnr)
+        --   -- Disable "format_on_save lsp_fallback" for languages that don't
+        --   -- have a well standardized coding style. You can add additional
+        --   -- languages here or re-enable it for the disabled ones.
+        --   local disable_filetypes = { c = true, cpp = true }
+        --   return {
+        --     timeout_ms = 500,
+        --     lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+        --   }
+        -- end,
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -565,17 +569,17 @@ require('lazy').setup({
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
-      -- local statusline = require 'mini.statusline'
+      local statusline = require 'mini.statusline'
       -- set use_icons to true if you have a Nerd Font
-      -- statusline.setup { use_icons = vim.g.have_nerd_font }
+      statusline.setup { use_icons = vim.g.have_nerd_font }
 
       -- You can configure sections in the statusline by overriding their
       -- default behavior. For example, here we set the section for
       -- cursor location to LINE:COLUMN
-      -- -@diagnostic disable-next-line: duplicate-set-field
-      -- statusline.section_location = function()
-      --   return '%2l:%-2v'
-      -- end
+      --- @diagnostic disable-next-line: duplicate-set-field
+      statusline.section_location = function()
+        return '%2l:%-2v'
+      end
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
