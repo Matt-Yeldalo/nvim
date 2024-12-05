@@ -573,9 +573,9 @@ require('lazy').setup({
       -- default behavior. For example, here we set the section for
       -- cursor location to LINE:COLUMN
       -- -@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
+      -- statusline.section_location = function()
       --   return '%2l:%-2v'
-      end
+      -- end
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
