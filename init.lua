@@ -121,6 +121,7 @@ require('lazy').setup({
         },
         pickers = {},
         extensions = {
+          fzf = {},
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
           },
@@ -133,6 +134,26 @@ require('lazy').setup({
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
+      local root_dir = vim.fs.dirname(vim.fs.find({ '.git', 'Gemfile' }, { upward = true })[1])
+      -- Rails custom maps
+      vim.keymap.set('n', '<leader>sv', function()
+        builtin.find_files {
+          cwd = root_dir .. '/app/views',
+        }
+      end, { desc = '[S]each [V]iews' })
+
+      vim.keymap.set('n', '<leader>sc', function()
+        builtin.find_files {
+          cwd = root_dir .. '/app/controllers',
+        }
+      end, { desc = '[S]each [C]ontrollers' })
+
+      vim.keymap.set('n', '<leader>sm', function()
+        builtin.find_files {
+          cwd = root_dir .. '/app/models',
+        }
+      end, { desc = '[S]each [M]odels' })
+
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
