@@ -307,10 +307,10 @@ require('lazy').setup({
 
       local servers = {
         solargraph = {
-          mason = false,
           filetypes = { 'rb', 'ruby' },
-          cmd = { os.getenv 'HOME' .. '/.rbenv/shims/solargraph', 'stdio' },
-          root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git', '.'),
+          -- mason = false,
+          -- cmd = { os.getenv 'HOME' .. '/.rbenv/shims/solargraph', 'stdio' },
+          -- root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git', '.'),
           settings = {
             solargraph = {
               autoformat = true,
@@ -324,10 +324,10 @@ require('lazy').setup({
           },
         },
         rubocop = {
-          mason = false,
           filetypes = { 'rb', 'ruby' },
-          cmd = { os.getenv 'HOME' .. '/.rbenv/shims/rubocop' },
-          root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git', '.'),
+          -- mason = false,
+          -- cmd = { os.getenv 'HOME' .. '/.rbenv/shims/rubocop' },
+          -- root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git', '.'),
         },
         zls = {
           cmd = { '/home/matt/.zls/zls' },
@@ -400,6 +400,9 @@ require('lazy').setup({
         rubocop = {
           command = os.getenv 'HOME' .. '/.rbenv/shims/rubocop/bin/rubocop',
         },
+        erb_formatter = {
+          command = os.getenv 'HOME' .. '/.rbenv/shims/erb-format', 'stdio'
+        }
       },
       notify_on_error = false,
       formatters_by_ft = {
@@ -410,8 +413,8 @@ require('lazy').setup({
         c = { 'clangd' },
         markdown = { 'markdownlint' },
         html = { 'htmlbeautifier' },
-        erb = { 'erblint' },
-        eruby = { 'erblint' },
+        erb = { 'erb_formatter' },
+        eruby = { 'erb_formatter' },
         css = { 'cssls' },
         scss = { 'cssls' },
         -- format_on_save = function(bufnr)
@@ -558,6 +561,7 @@ require('lazy').setup({
       --  - yinq - [Y]ank [I]nside [N]ext [Q]uote
       --  - ci'  - [C]hange [I]nside [']quote
       require('mini.ai').setup { n_lines = 500 }
+      require('mini.icons').setup()
 
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
