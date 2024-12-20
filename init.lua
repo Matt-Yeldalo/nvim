@@ -419,7 +419,8 @@ require('lazy').setup({
     opts = {
       formatters = {
         rubocop = {
-          command = os.getenv 'HOME' .. '/.rbenv/shims/rubocop/bin/rubocop',
+          command = os.getenv 'HOME' .. '/.rbenv/shims/rubocop',
+          args = { "--server", "--auto-correct-all", "--stderr", "--force-exclusion", "--stdin", "$FILENAME" }
         },
         erb_formatter = {
           command = os.getenv 'HOME' .. '/.rbenv/shims/erb-format', 'stdio'
