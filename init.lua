@@ -331,6 +331,7 @@ require('lazy').setup({
           cmd = {'elixir-ls'},
           filetypes = {'elixir', 'eelixir', 'heex', 'surface', 'ex', 'exs'}
         },
+        tailwindcss = {},
         solargraph = {
           filetypes = { 'rb', 'ruby' },
           -- mason = false,
@@ -424,11 +425,12 @@ require('lazy').setup({
       formatters = {
         rubocop = {
           command = os.getenv 'HOME' .. '/.rbenv/shims/rubocop',
-          args = { "--server", "--auto-correct-all", "--stderr", "--force-exclusion", "--stdin", "$FILENAME" }
+          args = { '--server', '--auto-correct-all', '--stderr', '--force-exclusion', '--stdin', '$FILENAME' },
         },
         erb_formatter = {
-          command = os.getenv 'HOME' .. '/.rbenv/shims/erb-format', 'stdio'
-        }
+          command = os.getenv 'HOME' .. '/.rbenv/shims/erb-format',
+          args = { '--stdin', '--print-width', '120' },
+        },
       },
       notify_on_error = false,
       formatters_by_ft = {
