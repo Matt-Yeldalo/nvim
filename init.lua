@@ -327,6 +327,10 @@ require('lazy').setup({
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
       local servers = {
+        elixirls = {
+          cmd = {'elixir-ls'},
+          filetypes = {'elixir', 'eelixir', 'heex', 'surface', 'ex', 'exs'}
+        },
         solargraph = {
           filetypes = { 'rb', 'ruby' },
           -- mason = false,
@@ -428,6 +432,8 @@ require('lazy').setup({
       },
       notify_on_error = false,
       formatters_by_ft = {
+        ex = {'elixir-ls'},
+        exs = {'elixir-ls'},
         lua = { 'stylua' },
         ruby = { 'rubocop' },
         rb = { 'rubocop' },
