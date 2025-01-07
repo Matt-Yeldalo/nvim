@@ -328,8 +328,8 @@ require('lazy').setup({
 
       local servers = {
         elixirls = {
-          cmd = {'elixir-ls'},
-          filetypes = {'elixir', 'eelixir', 'heex', 'surface', 'ex', 'exs'}
+          cmd = { 'elixir-ls' },
+          filetypes = { 'elixir', 'eelixir', 'heex', 'surface', 'ex', 'exs' },
         },
         tailwindcss = {},
         solargraph = {
@@ -434,8 +434,8 @@ require('lazy').setup({
       },
       notify_on_error = false,
       formatters_by_ft = {
-        ex = {'elixir-ls'},
-        exs = {'elixir-ls'},
+        ex = { 'elixir-ls' },
+        exs = { 'elixir-ls' },
         lua = { 'stylua' },
         ruby = { 'rubocop' },
         rb = { 'rubocop' },
@@ -625,6 +625,9 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
+      playground = {
+        enable = true,
+      },
       ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
       -- Autoinstall languages that are not installed
       auto_install = true,
