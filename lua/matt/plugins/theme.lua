@@ -1,13 +1,7 @@
--- require('matt.themes.arcoiris')
--- vim.cmd('colorscheme arcoiris')
-
 local theme = 'olimorris/onedarkpro.nvim'
 local mod = 'onedarkpro'
-local scheme = 'onedark_vivid'
+local scheme = 'onedark'
 
--- local theme = 'navarasu/onedark.nvim'
--- local mod = 'onedark'
--- local preset = 'warmer'
 
 return {
   theme,
