@@ -583,15 +583,21 @@ require('lazy').setup({
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
   {
     'echasnovski/mini.nvim',
+    version = '*',
     config = function()
       -- Better Around/Inside textobjects
-      --
       -- Examples:
       --  - va)  - [V]isually select [A]round [)]paren
       --  - yinq - [Y]ank [I]nside [N]ext [Q]uote
       --  - ci'  - [C]hange [I]nside [']quote
       require('mini.ai').setup { n_lines = 500 }
       require('mini.icons').setup()
+      require('mini.align').setup()
+      require('mini.animate').setup()
+      require('mini.bracketed').setup()
+      require('mini.files').setup()
+      require('mini.git').setup()
+      require('mini.notify').setup()
 
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
@@ -614,9 +620,6 @@ require('lazy').setup({
       statusline.section_location = function()
         return '%2l:%-2v'
       end
-
-      -- ... and there is more!
-      --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
   { -- Highlight, edit, and navigate code
