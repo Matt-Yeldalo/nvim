@@ -4,9 +4,9 @@ local scheme = 'onedark'
 
 
 return {
-  -- theme,
-  -- priority = 1000,
-  -- config = function()
-  --   vim.cmd('colorscheme onedark')
-  -- end
+  theme,
+  priority = 1000,
+  config = function()
+    vim.cmd('colorscheme onedark')
+  end
 }
