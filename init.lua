@@ -154,6 +154,12 @@ require('lazy').setup({
         }
       end, { desc = '[S]each [M]odels' })
 
+      vim.keymap.set('n', '<leader>sj', function()
+        builtin.find_files {
+          cwd = root_dir .. '/app/javascript',
+        }
+      end, { desc = '[S]each [J]avascript' })
+
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
