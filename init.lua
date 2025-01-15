@@ -337,7 +337,8 @@ require('lazy').setup({
           cmd = { 'elixir-ls' },
           filetypes = { 'elixir', 'eelixir', 'heex', 'surface', 'ex', 'exs' },
         },
-        tailwindcss = {},
+        tailwindcss = {
+        },
         solargraph = {
           filetypes = { 'rb', 'ruby' },
           -- mason = false,
