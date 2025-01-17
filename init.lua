@@ -338,6 +338,7 @@ require('lazy').setup({
           filetypes = { 'elixir', 'eelixir', 'heex', 'surface', 'ex', 'exs' },
         },
         tailwindcss = {
+          filetypes = { 'eruby', 'erb' },
         },
         solargraph = {
           filetypes = { 'rb', 'ruby' },
