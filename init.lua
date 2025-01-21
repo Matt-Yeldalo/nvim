@@ -337,7 +337,21 @@ require('lazy').setup({
           cmd = { 'elixir-ls' },
           filetypes = { 'elixir', 'eelixir', 'heex', 'surface', 'ex', 'exs' },
         },
-        tailwindcss = {},
+        tailwindcss = {
+          filetypes = { 'eruby', 'erb' },
+          settings = {
+            tailwindCSS = {
+              experimental = {
+                classRegex = {
+                  -- Regex for Tailwind in Rails helpers
+                  [[class: ["']([^"']*)["']], -- Match class: "text-blue-500"
+                  [[content_tag\s*:\w+.*class:\s*["']([^"']*)["']], -- Match content_tag helper
+                  [[tag\.\w+\s*.*class:\s*["']([^"']*)["']], -- Match tag helper
+                },
+              },
+            },
+          },
+        },
         solargraph = {
           filetypes = { 'rb', 'ruby' },
           -- mason = false,
