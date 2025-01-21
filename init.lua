@@ -372,9 +372,8 @@ require('lazy').setup({
         rubocop = {
           filetypes = { 'rb', 'ruby' },
           cmd = { 'bundle', 'exec', 'rubocop', '--lsp' },
-          -- mason = false,
-          -- cmd = { os.getenv 'HOME' .. '/.rbenv/shims/rubocop' },
-          -- root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git', '.'),
+          mason = false,
+          root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git', '.'),
         },
         zls = {
           cmd = { '/home/matt/.zls/zls' },
