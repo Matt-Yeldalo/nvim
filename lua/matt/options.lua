@@ -1,3 +1,6 @@
+-- Disable f#ing ANNOYING auto comment
+vim.cmd([[autocmd FileType * set formatoptions-=ro]])
+-- vim.opt_local.formatoptions:remove({'r', 'o' })
 vim.diagnostic.config({virtual_text = false})
 vim.g.have_nerd_font = true
 vim.o.cmdheight = 0
@@ -54,5 +57,4 @@ vim.opt.incsearch = true
 vim.opt.swapfile = false
 vim.opt.undofile = true
 vim.opt.clipboard = 'unnamedplus'
-vim.opt_local.formatoptions:remove({ 'r', 'o' })
 
