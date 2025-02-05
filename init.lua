@@ -427,7 +427,7 @@ require('lazy').setup({
       {
         '<leader>f',
         function()
-          require('conform').format { async = true, lsp_format = 'never' }
+          require('conform').format { async = true, lsp_format = 'fallback' }
         end,
         mode = '',
         desc = '[F]ormat buffer',
@@ -452,7 +452,7 @@ require('lazy').setup({
         lua = { 'stylua' },
         ruby = { 'rubocop' },
         rb = { 'rubocop' },
-        javascript = { { 'prettierd', 'prettier' } },
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
         c = { 'clangd' },
         markdown = { 'markdownlint' },
         html = { 'htmlbeautifier' },
