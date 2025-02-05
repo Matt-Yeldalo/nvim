@@ -336,6 +336,7 @@ require('lazy').setup({
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
       local servers = {
+        cssls = {},
         elixirls = {
           cmd = { 'elixir-ls' },
           filetypes = { 'elixir', 'eelixir', 'heex', 'surface', 'ex', 'exs' },
@@ -459,7 +460,7 @@ require('lazy').setup({
         erb = { 'erb_formatter' },
         eruby = { 'erb_formatter' },
         css = { 'cssls' },
-        scss = { 'cssls' },
+        scss = { 'cssls', 'prettier', stop_after_first = true },
         -- format_on_save = function(bufnr)
         --   -- Disable "format_on_save lsp_fallback" for languages that don't
         --   -- have a well standardized coding style. You can add additional
