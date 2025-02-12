@@ -1,5 +1,6 @@
 require 'matt.remaps'
 require 'matt.options'
+local icons = require 'matt.icons'
 
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
@@ -603,16 +604,16 @@ require('lazy').setup({
       require('mini.icons').setup()
       require('mini.surround').setup()
 
-      local statusline = require 'mini.statusline'
-      -- set use_icons to true if you have a Nerd Font
-      statusline.setup { use_icons = vim.g.have_nerd_font }
-      -- You can configure sections in the statusline by overriding their
-      -- default behavior. For example, here we set the section for
-      -- cursor location to LINE:COLUMN
-      --- @diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
-        return '%2l:%-2v'
-      end
+      -- local statusline = require 'mini.statusline'
+      -- -- set use_icons to true if you have a Nerd Font
+      -- statusline.setup { use_icons = vim.g.have_nerd_font }
+      -- -- You can configure sections in the statusline by overriding their
+      -- -- default behavior. For example, here we set the section for
+      -- -- cursor location to LINE:COLUMN
+      -- --- @diagnostic disable-next-line: duplicate-set-field
+      -- statusline.section_location = function()
+      --   return '%2l:%-2v'
+      -- end
     end,
   },
   { -- Highlight, edit, and navigate code
@@ -649,7 +650,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.gitsigns',
   -- TODO: move to my own plugins dir
   require 'kickstart.plugins.lint',
-  require 'kickstart.plugins.autopairs',
+  -- require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   { import = 'matt.plugins' },
 }, {

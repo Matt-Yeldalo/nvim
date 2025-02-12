@@ -1,5 +1,6 @@
 return {
   'zbirenbaum/copilot.lua',
+  dependencies = { 'giuxtaposition/blink-cmp-copilot' },
   cmd = 'Copilot',
   config = function()
     local copilot = require 'copilot'
