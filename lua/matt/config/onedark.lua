@@ -1,11 +1,12 @@
 local scheme = 'onedark'
+local trans = false
 return {
   'navarasu/onedark.nvim',
   priority = 1000,
   config = function()
     require('onedark').setup {
       style = 'deep',
-      transparent = false,
+      transparent = trans,
       term_colors = true,
       ending_tildes = false,
       cmp_itemkind_reverse = false,
@@ -22,7 +23,7 @@ return {
         variables = 'none',
       },
 
-      lualine = { transparent = false },
+      lualine = { transparent = trans },
       diagnostics = { darker = true, undercurl = true, background = true },
     }
 
