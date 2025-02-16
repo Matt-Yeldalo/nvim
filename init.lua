@@ -444,10 +444,10 @@ require('lazy').setup({
         },
         erb_formatter = {
           command = os.getenv 'HOME' .. '/.rbenv/shims/erb-format',
-          args = { '--stdin', '--print-width', '125' },
+          args = { '--stdin', '--print-width', '120' },
         },
       },
-      notify_on_error = false,
+      notify_on_error = true,
       formatters_by_ft = {
         ex = { 'elixir-ls' },
         exs = { 'elixir-ls' },
