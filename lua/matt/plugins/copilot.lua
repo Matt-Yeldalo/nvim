@@ -12,7 +12,7 @@ return {
         keymap = {
           -- jump_prev = '[[',
           -- jump_next = ']]',
-          accept = '<CR>',
+          -- accept = '<CR>',
           -- refresh = 'gr',
           open = '<M-CR>',
         },

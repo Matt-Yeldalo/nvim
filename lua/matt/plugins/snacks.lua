@@ -132,11 +132,25 @@ return {
     },
     -- git
     {
-      '<leader>gb',
+      '<leader>gg',
+      function()
+        require('snacks').lazygit.open()
+      end,
+      desc = 'Git Branches',
+    },
+    {
+      '<leader>gB',
       function()
         require('snacks').picker.git_branches()
       end,
       desc = 'Git Branches',
+    },
+    {
+      '<leader>gb',
+      function()
+        require('snacks').git.blame_line()
+      end,
+      desc = 'Git Blame',
     },
     {
       '<leader>gl',
@@ -389,11 +403,11 @@ return {
       desc = 'Goto Implementation',
     },
     {
-      'gy',
+      'gT',
       function()
         require('snacks').picker.lsp_type_definitions()
       end,
-      desc = 'Goto T[y]pe Definition',
+      desc = 'Goto [T]ype Definition',
     },
     {
       '<leader>ss',
@@ -416,14 +430,16 @@ return {
       picker = {},
       animate = {
         enabled = true,
-        duration = 20, -- ms per step
-        easing = 'linear',
+        duration = 40, -- ms per step
+        easing = function(time, begin, change, duration)
+          return change * time / duration + begin
+        end,
         fps = 60,
       },
       bigfile = {
         enabled = true,
         notify = true,
-        size = 300 * 1024, -- 100 KB
+        size = 1.5 * 1024 * 1024,
       },
       bufdelete = { enabled = true },
       dashboard = {
@@ -463,7 +479,7 @@ return {
           siblings = true,
         },
       },
-      git = { enabled = true },
+      git = { enabled = true},
       gitbrowse = { enabled = true },
       indent = {
         enabled = true,
@@ -481,6 +497,9 @@ return {
           "require('snacks')Indent7",
           "require('snacks')Indent8",
         },
+      },
+      image = {
+        force = true
       },
       input = {
         enabled = true,
@@ -568,10 +587,10 @@ return {
         border = 'rounded',
         title_pos = 'center',
         footer_pos = 'center',
-        relative = true,
+        relative = 'editor',
         keys = {
           ['execute'] = {
-            '<cr>',
+            'M<cr>',
             function(_)
               vim.cmd '%SnipRun'
             end,
@@ -580,29 +599,29 @@ return {
           },
         },
       },
-      win_by_ft = {
-        lua = {
-          keys = {
-            ['source'] = {
-              '<cr>',
-              function(self)
-                local name = 'scratch.' .. vim.fn.fnamemodify(vim.api.nvim_buf_get_name(self.buf), ':e')
-                require('snacks').debug.run { buf = self.buf, name = name }
-              end,
-              desc = 'Source buffer',
-              mode = { 'n', 'x' },
-            },
-            ['execute'] = {
-              'e',
-              function(_)
-                vim.cmd '%SnipRun'
-              end,
-              desc = 'Execute buffer',
-              mode = { 'n', 'x' },
-            },
-          },
-        },
-      },
+      -- win_by_ft = {
+      --   lua = {
+      --     keys = {
+      --       ['source'] = {
+      --         '<cr>',
+      --         function(self)
+      --           local name = 'scratch.' .. vim.fn.fnamemodify(vim.api.nvim_buf_get_name(self.buf), ':e')
+      --           require('snacks').debug.run { buf = self.buf, name = name }
+      --         end,
+      --         desc = 'Source buffer',
+      --         mode = { 'n', 'x' },
+      --       },
+      --       ['execute'] = {
+      --         'e',
+      --         function(_)
+      --           vim.cmd '%SnipRun'
+      --         end,
+      --         desc = 'Execute buffer',
+      --         mode = { 'n', 'x' },
+      --       },
+      --     },
+      --   },
+      -- },
       scroll = { enabled = false },
       statuscolumn = {
         enabled = true,
@@ -619,7 +638,6 @@ return {
       },
       terminal = { enabled = true },
       toggle = { enabled = false },
-      win = { enabled = true },
       words = { enabled = true },
       zen = {
         enabled = true,
