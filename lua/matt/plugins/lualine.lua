@@ -1,6 +1,141 @@
+-- Copyright (c) 2020-2021 shadmansaleh
+-- MIT license, see LICENSE for more details.
+-- Credit: Zoltan Dalmadi(lightline)
+-- stylua: ignore
+-- local colors = {
+--   blue   = '#61afef',
+--   green  = '#98c379',
+--   purple = '#c678dd',
+--   cyan   = '#56b6c2',
+--   red1   = '#e06c75',
+--   red2   = '#be5046',
+--   yellow = '#e5c07b',
+--   fg     = '#abb2bf',
+--   bg     = '#282c34',
+--   gray1  = '#828997',
+--   gray2  = '#2c323c',
+--   gray3  = '#3e4452',
+-- }
+
+local onedark_dark_colors = {
+    bg = "#000000",
+    fg = "#abb2bf",
+    red = "#ef596f",
+    orange = "#d19a66",
+    yellow = "#e5c07b",
+    green = "#89ca78",
+    cyan = "#2bbac5",
+    blue = "#61afef",
+    purple = "#d55fde",
+    white = "#abb2bf",
+    black = "#000000",
+    gray = "#434852",
+    highlight = "#e2be7d",
+    comment = "#7f848e",
+}
+
+local function patternescape(str)
+  return str:gsub("[%(%)%.%%%+%-%*%?%[%]%^%$]", "%%%1")
+end
+
+local function array(...)
+  local t = {}
+  for x in ... do
+    t[#t + 1] = x
+  end
+  return t
+end
+
+local function split(str, sep)
+  if not sep then
+    return array(str:gmatch '([%S]+)')
+  else
+    assert(sep ~= '', 'empty separator')
+    local psep = patternescape(sep)
+    return array((str .. sep):gmatch('(.-)(' .. psep .. ')'))
+  end
+end
+
+-- local config = require 'matt.config.onedarkpro'
+
+local function onedark_dark()
+  local onedarkpro = {}
+  local colors = onedark_dark_colors
+
+  onedarkpro.normal = {
+    a = { bg = colors.green, fg = colors.bg },
+    b = { bg = colors.fg_gutter, fg = colors.green },
+    c = { bg = colors.none or colors.bg_statusline, fg = colors.fg },
+  }
+
+  onedarkpro.insert = {
+    a = { bg = colors.blue, fg = colors.bg },
+    b = { bg = colors.fg_gutter, fg = colors.blue },
+  }
+
+  onedarkpro.command = {
+    a = { bg = colors.purple, fg = colors.bg },
+    b = { bg = colors.fg_gutter, fg = colors.purple },
+  }
+
+  onedarkpro.visual = {
+    a = { bg = colors.yellow, fg = colors.bg },
+    b = { bg = colors.fg_gutter, fg = colors.yellow },
+  }
+
+  onedarkpro.replace = {
+    a = { bg = colors.red, fg = colors.bg },
+    b = { bg = colors.fg_gutter, fg = colors.red },
+  }
+
+  local inactive_bg = colors.color_column or colors.bg
+  onedarkpro.inactive = {
+    a = { bg = inactive_bg, fg = colors.blue },
+    b = { bg = inactive_bg, fg = colors.fg_gutter_inactive, gui = 'bold' },
+    c = { bg = colors.none or inactive_bg, fg = colors.fg_gutter_inactive },
+  }
+
+  return onedarkpro
+end
+local function default_onedark()
+  local colors = {
+    blue = '#61afef',
+    green = '#98c379',
+    purple = '#c678dd',
+    cyan = '#56b6c2',
+    red1 = '#e06c75',
+    red2 = '#be5046',
+    yellow = '#e5c07b',
+    fg = '#abb2bf',
+    bg = 'black',
+    gray1 = '#828997',
+    gray2 = '#2c323c',
+    gray3 = '#3e4452',
+  }
+
+  return {
+    normal = {
+      a = { fg = colors.bg, bg = colors.green, gui = 'bold' },
+      b = { fg = colors.fg, bg = colors.gray2 },
+      c = { fg = colors.fg, bg = colors.blue },
+    },
+    command = { a = { fg = colors.bg, bg = colors.yellow, gui = 'bold' } },
+    insert = { a = { fg = colors.bg, bg = colors.blue, gui = 'bold' } },
+    visual = { a = { fg = colors.bg, bg = colors.purple, gui = 'bold' } },
+    terminal = { a = { fg = colors.bg, bg = colors.cyan, gui = 'bold' } },
+    replace = { a = { fg = colors.bg, bg = colors.red1, gui = 'bold' } },
+    inactive = {
+      a = { fg = colors.gray1, bg = colors.bg, gui = 'bold' },
+      b = { fg = colors.gray1, bg = colors.bg },
+      c = { fg = colors.gray1, bg = colors.gray3 },
+    },
+  }
+end
+
 local icons = require 'matt.icons'
+-- local custom_ondarkpro = require 'lualine.themes.onedark'
 local colors = {
-  bg = '#202328',
+  bg = '#000000',
   fg = '#bbc2cf',
   yellow = '#ECBE7B',
   cyan = '#008080',
@@ -12,6 +147,7 @@ local colors = {
   blue = '#51afef',
   red = '#ec5f67',
 }
+-- custom_ondarkpro.normal.c.bg = colors.bg
 
 local mode_color = {
   n = colors.green,
@@ -157,6 +293,19 @@ local separator = {
   padding = { left = 0, right = 0 },
 }
 
+local project = {
+  function()
+    return icons.ui.Project
+  end,
+  color = function()
+    return { fg = colors.blue }
+  end,
+  fmt = function(str)
+    local root_dir = vim.fs.dirname(vim.fs.find({ '.git', 'Gemfile' }, { upward = true })[1])
+    return str .. root_dir
+  end,
+}
+
 local function mode(icon)
   icon = icon or icons.ui.Neovim
   return {
@@ -177,7 +326,8 @@ return {
       options = {
         component_separators = '',
         -- section_separators = '',
-        theme = 'onedark',
+        -- theme = 'onedark_dark',
+        theme = onedark_dark(),
         disabled_filetypes = {
           'dashboard',
         },
@@ -187,7 +337,7 @@ return {
         lualine_a = {},
         lualine_b = { mode(), buffers },
         lualine_c = {},
-        lualine_x = { diff_icons, branch },
+        lualine_x = { diff_icons, project, branch },
         lualine_y = { searchcount, selectioncount },
         lualine_z = {},
       },

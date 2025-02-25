@@ -1,4 +1,4 @@
-local theme = require('matt.config.onedark')
+local theme = require('matt.config.onedarkpro')
 
 return theme
 -- local theme = 'olimorris/onedarkpro.nvim'
