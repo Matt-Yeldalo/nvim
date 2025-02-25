@@ -2,7 +2,8 @@ local icons = require 'matt.icons'
 
 return {
   'saghen/blink.cmp',
-  dependencies = { 'rafamadriz/friendly-snippets' },
+  -- dependencies = { 'rafamadriz/friendly-snippets', 'L3MON4DE/LuaSnip' },
+  dependencies = {'L3MON4DE/LuaSnip', version = '2.*' },
   version = '*',
   opts_extended = { 'sources.default' },
   event = { 'InsertEnter' },
