@@ -302,7 +302,7 @@ local project = {
   end,
   fmt = function(str)
     local root_dir = vim.fs.dirname(vim.fs.find({ '.git', 'Gemfile' }, { upward = true })[1])
-    if !root_dir then
+    if root_dir == nil then
       return str
     end
 
