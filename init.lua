@@ -24,7 +24,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-  { 'numToStr/Comment.nvim', opts = {} },-- "gc" to comment visual regions/lines
+  { 'numToStr/Comment.nvim', opts = {} }, -- "gc" to comment visual regions/lines
   -- { -- Adds git related signs to the gutter, as well as utilities for managing changes
   --   'lewis6991/gitsigns.nvim',
   --   opts = {
@@ -360,7 +360,7 @@ require('lazy').setup({
         solargraph = {
           filetypes = { 'rb', 'ruby' },
           mason = false,
-          cmd = { os.getenv 'HOME' .. '/.rbenv/shims/solargraph', 'stdio' },
+          cmd = { 'bundle', 'exec', 'solargraph', 'stdio' },
           root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git', '.'),
         },
         rubocop = {
@@ -429,7 +429,7 @@ require('lazy').setup({
       {
         '<leader>f',
         function()
-          require('conform').format { async = true, lsp_format = 'fallback' }
+          require('conform').format { async = true, lsp_format = 'last' }
         end,
         mode = '',
         desc = '[F]ormat buffer',
@@ -438,9 +438,13 @@ require('lazy').setup({
     opts = {
       formatters = {
         rubocop = {
-          args = { '--server', '--auto-correct-all', '--stderr', '--force-exclusion', '--stdin', '$FILENAME' },
+          -- args = { '--format', '--server', '--auto-correct-all', '--stderr', '--force-exclusion', '--stdin', '$FILENAME' },
+          -- args = {'--format'},
           command = os.getenv 'HOME' .. '/.rbenv/shims/rubocop',
-          -- args = { '--server', '--auto-correct-all', '--stderr', '--force-exclusion', '--stdin', '$FILENAME' },
+          -- command = { 'bundle', 'exec', 'rubocop' },
+          -- root_dir = vim.fs.dirname(vim.fs.find({ '.git', 'Gemfile' }, { upward = true })[1]),
+          -- root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git', '.'),
+          args = { '--server', '--auto-correct-all', '--stderr', '--force-exclusion', '--stdin', '$FILENAME' },
         },
         erb_formatter = {
           command = os.getenv 'HOME' .. '/.rbenv/shims/erb-format',
@@ -673,4 +677,4 @@ require('lazy').setup({
   },
 })
 
-vim.cmd('Copilot disable')
+vim.cmd 'Copilot disable'
