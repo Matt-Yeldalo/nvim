@@ -448,7 +448,7 @@ require('lazy').setup({
         },
         erb_formatter = {
           command = os.getenv 'HOME' .. '/.rbenv/shims/erb-format',
-          args = { '--stdin', '--print-width', '120' },
+          args = { '--stdin', '--print-width', '140' },
         },
       },
       notify_on_error = true,

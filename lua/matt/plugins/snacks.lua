@@ -577,7 +577,7 @@ return {
         },
       },
       win = {
-        width = 120,
+        width = 220,
         height = 40,
         bo = { buftype = '', buflisted = false, bufhidden = 'hide', swapfile = false },
         minimal = false,
