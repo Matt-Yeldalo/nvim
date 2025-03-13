@@ -3,6 +3,15 @@ return {
   priority = 1000,
   lazy = false,
   keys = {
+    -- Zen
+    {
+      '<leader>zz',
+      mode = { 'n', 'x', 'o' },
+      function()
+        require('snacks').zen()
+      end,
+      desc = 'Toggle [Z]en mode',
+    },
     -- Flash
     {
       '<leader>j',
@@ -470,7 +479,6 @@ return {
           { section = 'startup' },
         },
       },
-      debug = { enabled = true },
       dim = {
         enabled = true,
         scope = {
@@ -479,7 +487,7 @@ return {
           siblings = true,
         },
       },
-      git = { enabled = true},
+      git = { enabled = true },
       gitbrowse = { enabled = true },
       indent = {
         enabled = true,
@@ -499,7 +507,7 @@ return {
         },
       },
       image = {
-        force = true
+        force = true,
       },
       input = {
         enabled = true,
@@ -513,7 +521,7 @@ return {
       lazygit = { enabled = true },
       notifier = {
         enabled = true,
-        timeout = 2000,
+        timeout = 1000,
         width = { min = 40, max = 0.4 },
         height = { min = 1, max = 0.6 },
         margin = { top = 0, right = 1, bottom = 0 },
@@ -533,9 +541,7 @@ return {
         more_format = ' ↓ %d lines ',
         refresh = 50,
       },
-      todo = { enabled = true },
       notify = { enabled = true },
-      profiler = { enabled = true },
       quickfile = { enabled = true },
       rename = { enabled = true },
       scope = {
@@ -577,8 +583,8 @@ return {
         },
       },
       win = {
-        width = 220,
-        height = 40,
+        width = 0.9,
+        height = 0.9,
         bo = { buftype = '', buflisted = false, bufhidden = 'hide', swapfile = false },
         minimal = false,
         noautocmd = false,
@@ -628,8 +634,8 @@ return {
         left = { 'mark', 'sign' },
         right = { 'fold', 'git' },
         folds = {
-          open = false,
-          git_hl = false,
+          open = true,
+          git_hl = true,
         },
         git = {
           patterns = { 'GitSign', 'MiniDiffSign' },
@@ -637,7 +643,7 @@ return {
         refresh = 50,
       },
       terminal = { enabled = true },
-      toggle = { enabled = false },
+      toggle = { enabled = true },
       words = { enabled = true },
       zen = {
         enabled = true,
@@ -645,7 +651,7 @@ return {
           dim = true,
           git_signs = false,
           mini_diff_signs = false,
-          -- diagnostics = false,
+          diagnostics = false,
           -- inlay_hints = false,
         },
         show = {

@@ -1,6 +1,6 @@
 local theme = require('matt.config.onedarkpro')
-
 return theme
+
 -- local theme = 'olimorris/onedarkpro.nvim'
 -- local mod = 'onedarkpro'
 -- local scheme = 'onedark_dark'
