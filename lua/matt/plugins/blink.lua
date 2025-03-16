@@ -2,8 +2,8 @@ local icons = require 'matt.icons'
 
 return {
   'saghen/blink.cmp',
-  -- dependencies = { 'rafamadriz/friendly-snippets', 'L3MON4DE/LuaSnip' },
-  dependencies = {'L3MON4DE/LuaSnip', version = '2.*' },
+  dependencies = { 'rafamadriz/friendly-snippets', 'L3MON4DE/LuaSnip' },
+  -- dependencies = {'L3MON4DE/LuaSnip', version = '2.*' },
   version = '*',
   opts_extended = { 'sources.default' },
   event = { 'InsertEnter' },
@@ -17,10 +17,15 @@ return {
         ['<C-y>'] = { 'show_documentation', 'hide_documentation' },
       },
       completion = {
+        trigger = {
+          show_in_snippet = false
+        },
         list = {
           selection = {
+            preselect = function (cmp)
+              return not require('blink.cmp').snippet_active()
+            end,
             auto_insert = true,
-            preselect = true,
           },
         },
         menu = { border = 'rounded' },
