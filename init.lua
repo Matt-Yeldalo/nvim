@@ -10,8 +10,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- [[ Install `lazy.nvim` plugin manager ]]
---    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
@@ -23,7 +21,7 @@ end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-  'tpope/vim-sleuth',                     -- Detect tabstop and shiftwidth automatically
+  'tpope/vim-sleuth',                        -- Detect tabstop and shiftwidth automatically
   { 'numToStr/Comment.nvim',    opts = {} }, -- "gc" to comment visual regions/lines
   -- { -- Adds git related signs to the gutter, as well as utilities for managing changes
   --   'lewis6991/gitsigns.nvim',
@@ -89,7 +87,7 @@ require('lazy').setup({
         { '<leader>s', group = '[S]earch' },
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
-        { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        -- { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       },
     },
   },
@@ -191,8 +189,13 @@ require('lazy').setup({
       -- Change diagnostic symbols in the sign column (gutter)
       if vim.g.have_nerd_font then
         -- local signs = { ERROR = '', WARN = '', INFO = '', HINT = '' }
-        local signs = { ERROR = icons.diagnostics.Error, WARN = icons.diagnostics.Warning, INFO = icons.diagnostics
-        .Information, HINT = icons.diagnostics.Hint }
+        local signs = {
+          ERROR = icons.diagnostics.Error,
+          WARN = icons.diagnostics.Warning,
+          INFO = icons.diagnostics
+              .Information,
+          HINT = icons.diagnostics.Hint
+        }
         local diagnostic_signs = {}
         for type, icon in pairs(signs) do
           diagnostic_signs[vim.diagnostic.severity[type]] = icon
@@ -419,6 +422,7 @@ require('lazy').setup({
   require 'kickstart.plugins.neo-tree',
   { import = 'matt.plugins' },
 }, {
+  change_detection = { notify = false },
   ui = {
     icons = vim.g.have_nerd_font and {} or {
       cmd = '⌘',
