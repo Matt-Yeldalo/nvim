@@ -21,8 +21,8 @@ end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-  'tpope/vim-sleuth',                        -- Detect tabstop and shiftwidth automatically
-  { 'numToStr/Comment.nvim',    opts = {} }, -- "gc" to comment visual regions/lines
+  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  { 'numToStr/Comment.nvim', opts = {} }, -- "gc" to comment visual regions/lines
   -- { -- Adds git related signs to the gutter, as well as utilities for managing changes
   --   'lewis6991/gitsigns.nvim',
   --   opts = {
@@ -35,7 +35,7 @@ require('lazy').setup({
   --     },
   --   },
   -- },
-  {                     -- Useful plugin to show you pending keybinds.
+  { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
@@ -81,7 +81,7 @@ require('lazy').setup({
 
       -- Document existing key chains
       spec = {
-        { '<leader>c', group = '[C]ode',     mode = { 'n', 'x' } },
+        { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
         { '<leader>d', group = '[D]ocument' },
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
@@ -116,7 +116,7 @@ require('lazy').setup({
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
-      { 'j-hui/fidget.nvim',       opts = {} },
+      { 'j-hui/fidget.nvim', opts = {} },
       -- { 'folke/neodev.nvim', opts = {} },
       'saghen/blink.cmp',
     },
@@ -192,9 +192,8 @@ require('lazy').setup({
         local signs = {
           ERROR = icons.diagnostics.Error,
           WARN = icons.diagnostics.Warning,
-          INFO = icons.diagnostics
-              .Information,
-          HINT = icons.diagnostics.Hint
+          INFO = icons.diagnostics.Information,
+          HINT = icons.diagnostics.Hint,
         }
         local diagnostic_signs = {}
         for type, icon in pairs(signs) do
@@ -207,11 +206,50 @@ require('lazy').setup({
       capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities())
 
       local servers = {
+        rubocop = {
+          cmd = { '/home/matt/.bundle/ruby/3.4.0/bin/rubocop' },
+          -- filetypes = { 'rb', 'ruby' },
+          -- cmd = { 'bundle', 'exec', 'rubocop', '--lsp' },
+          -- mason = false,
+          -- root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git', '.'),
+        },
+        solargraph = {
+          cmd = { '/home/matt/.bundle/ruby/3.4.0/bin/solargraph' },
+          -- filetypes = { 'rb', 'ruby' },
+          -- mason = false,
+          -- cmd = { 'bundle', 'exec', 'solargraph', 'stdio' },
+          -- root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git', '.'),
+        },
         cssls = {},
         ts_ls = {},
         elixirls = {
           cmd = { 'elixir-ls' },
           filetypes = { 'elixir', 'eelixir', 'heex', 'surface', 'ex', 'exs' },
+        },
+        lua_ls = {
+          -- cmd = {},
+          -- filetypes = {},
+          capabilities = {},
+          settings = {
+            Lua = {
+              completion = {
+                callSnippet = 'Replace',
+              },
+              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+              -- diagnostics = { disable = { 'missing-fields' } },
+            },
+          },
+        },
+        zls = {
+          cmd = { '/home/matt/.zls/zls' },
+          root_dir = require('lspconfig.util').root_pattern('.git', 'build.zig', 'zls.json'),
+          settings = {
+            zls = {
+              enable_inlay_hints = true,
+              enable_snippets = true,
+              warn_style = true,
+            },
+          },
         },
         -- tailwindcss = {
         --   mason = false,
@@ -229,29 +267,6 @@ require('lazy').setup({
         --     },
         --   },
         -- },
-        rubocop = {
-          filetypes = { 'rb', 'ruby' },
-          cmd = { 'bundle', 'exec', 'rubocop', '--lsp' },
-          mason = false,
-          root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git', '.'),
-        },
-        solargraph = {
-          filetypes = { 'rb', 'ruby' },
-          mason = false,
-          cmd = { 'bundle', 'exec', 'solargraph', 'stdio' },
-          root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git', '.'),
-        },
-        zls = {
-          cmd = { '/home/matt/.zls/zls' },
-          root_dir = require('lspconfig.util').root_pattern('.git', 'build.zig', 'zls.json'),
-          settings = {
-            zls = {
-              enable_inlay_hints = true,
-              enable_snippets = true,
-              warn_style = true,
-            },
-          },
-        },
         -- clangd = {},
         -- eslint = {
         --   mason = false,
@@ -259,28 +274,12 @@ require('lazy').setup({
         --   cmd = {'eslint'}
         --   -- cmd = {''},
         -- },
-        lua_ls = {
-          -- cmd = {},
-          -- filetypes = {},
-          capabilities = {},
-          settings = {
-            Lua = {
-              completion = {
-                callSnippet = 'Replace',
-              },
-              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              -- diagnostics = { disable = { 'missing-fields' } },
-            },
-          },
-        },
       }
 
       require('mason').setup()
 
       local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
-      })
+      vim.list_extend(ensure_installed, { 'stylua' })
       -- require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
@@ -305,64 +304,117 @@ require('lazy').setup({
     event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
     config = function()
-      vim.api.nvim_create_user_command('Format', function(args)
-        local range = nil
-        if args.count ~= -1 then
-          local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
-          range = {
-            start = { args.line1, 0 },
-            ['end'] = { args.line2, end_line:len() },
-          }
-        end
-        require('conform').format { async = true, lsp_format = 'fallback', range = range }
-      end, { range = true })
+              vim.keymap.set({ 'n', 'v' }, '<leader>fi', function()
+        require('conform').format { async = true, lsp_format = 'fallback' }
+      end, { desc = '[F]ormat buffer' })
+
+      require('conform').setup {
+        formatters = {
+          rubocop = {
+            cwd = require('conform.util').root_file { 'Gemfile', '.git', '.gitignore', '.editorconfig', 'package.json' },
+            -- command = os.getenv 'HOME' .. '/.rbenv/shims/rubocop',
+            command = os.getenv 'HOME' .. '/.bundle/ruby/3.2.0/bin/rubocop',
+            -- args = { "-a", "-f", "quiet", "--stderr", "--stdin", "$FILENAME" },
+            args = { '--server', '--autocorrect-all', '--stderr', '--force-exclusion', '--stdin', '$FILENAME' },
+            timeout_ms = 1000,
+            -- args = { '--server', '--auto-correct-all', '--stderr', '--force-exclusion', '--stdin', '$FILENAME' },
+            -- args = { '--format', '--server', '--auto-correct-all', '--stderr', '--force-exclusion', '--stdin', '$FILENAME' },
+            -- args = {'--format'},
+            -- command = os.getenv 'HOME' .. '/.rbenv/shims/rubocop',
+            -- root_dir = vim.fs.dirname(vim.fs.find({ '.git', 'Gemfile' }, { upward = true })[1]),
+            -- root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git', '.'),
+          },
+          erb_formatter = {
+            cwd = require('conform.util').root_file { 'Gemfile', '.gitignore', '.editorconfig', 'package.json' },
+            -- command = 'bundle exec erb-format',
+            command = os.getenv 'HOME' .. '/.bundle/ruby/3.2.0/bin/erb-format',
+            -- command = os.getenv 'HOME' .. '/.rbenv/shims/erb-format',
+            args = { '--stdin', '--print-width', '140' },
+          },
+          eslint = {
+            command = 'eslint',
+            args = { '--stdin' },
+          },
+        },
+        notify_on_error = true,
+        formatters_by_ft = {
+          ex = { 'elixir-ls' },
+          exs = { 'elixir-ls' },
+          lua = { 'stylua' },
+          ruby = { 'rubocop' },
+          rb = { 'rubocop' },
+          javascript = { 'ts_ls', 'prettierd', 'prettier', stop_after_first = true },
+          c = { 'clangd' },
+          markdown = { 'markdownlint' },
+          html = { 'htmlbeautifier' },
+          erb = { 'erb_formatter' },
+          eruby = { 'erb_formatter' },
+          css = { 'cssls' },
+          scss = { 'cssls', 'prettier', stop_after_first = true },
+        },
+      }
     end,
+    --   vim.api.nvim_create_user_command('Format', function(args)
+    --     local range = nil
+    --     if args.count ~= -1 then
+    --       local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
+    --       range = {
+    --         start = { args.line1, 0 },
+    --         ['end'] = { args.line2, end_line:len() },
+    --       }
+    --     end
+    --     require('conform').format { async = true, lsp_format = 'never', range = range }
+    --   end, { range = true })
+    -- end,
     keys = {
-      {
-        '<leader>f',
-        '<Cmd>Format<CR>',
-        -- require('conform').format { async = true, lsp_format = 'last' }
-        mode = { 'n', 'v' },
-        desc = '[F]ormat buffer',
-      },
+      -- {
+      --   '<leader>f',
+      --   require('conform').format { async = true, lsp_format = 'fallback' },
+      --   -- mode = { 'n', 'v' },
+      --   mode = '',
+      --   desc = '[F]ormat buffer',
+      -- },
     },
-    opts = {
-      formatters = {
-        rubocop = {
-          -- args = { '--format', '--server', '--auto-correct-all', '--stderr', '--force-exclusion', '--stdin', '$FILENAME' },
-          -- args = {'--format'},
-          -- command = os.getenv 'HOME' .. '/.rbenv/shims/rubocop',
-          command = 'bundle exec rubocop',
-          -- root_dir = vim.fs.dirname(vim.fs.find({ '.git', 'Gemfile' }, { upward = true })[1]),
-          -- root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git', '.'),
-          args = { '--server', '--auto-correct-all', '--stderr', '--force-exclusion', '--stdin', '$FILENAME' },
-        },
-        erb_formatter = {
-          command = os.getenv 'HOME' .. '/.rbenv/shims/erb-format',
-          args = { '--stdin', '--print-width', '140' },
-        },
-        eslint = {
-          command = 'eslint',
-          args = { '--stdin' },
-        },
-      },
-      notify_on_error = true,
-      formatters_by_ft = {
-        ex = { 'elixir-ls' },
-        exs = { 'elixir-ls' },
-        lua = { 'stylua' },
-        ruby = { 'rubocop' },
-        rb = { 'rubocop' },
-        javascript = { 'ts_ls', 'prettierd', 'prettier', stop_after_first = true },
-        c = { 'clangd' },
-        markdown = { 'markdownlint' },
-        html = { 'htmlbeautifier' },
-        erb = { 'erb_formatter' },
-        eruby = { 'erb_formatter' },
-        css = { 'cssls' },
-        scss = { 'cssls', 'prettier', stop_after_first = true },
-      },
-    },
+    -- opts = {
+    --   formatters = {
+    --     rubocop = {
+    --       cwd = require("conform.util").root_file({ "Gemfile", ".gitignore", ".editorconfig", "package.json" }),
+    --       command = 'bundle exec rubocop',
+    --       args = { '--server', '--auto-correct-all', '--stderr', '--force-exclusion', '--stdin', '$FILENAME' },
+    --       -- args = { '--format', '--server', '--auto-correct-all', '--stderr', '--force-exclusion', '--stdin', '$FILENAME' },
+    --       -- args = {'--format'},
+    --       -- command = os.getenv 'HOME' .. '/.rbenv/shims/rubocop',
+    --       -- root_dir = vim.fs.dirname(vim.fs.find({ '.git', 'Gemfile' }, { upward = true })[1]),
+    --       -- root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git', '.'),
+    --     },
+    --     erb_formatter = {
+    --       cwd = require("conform.util").root_file({ "Gemfile", ".gitignore", ".editorconfig", "package.json" }),
+    --       command = 'bundle exec erb-format',
+    --       -- command = os.getenv 'HOME' .. '/.rbenv/shims/erb-format',
+    --       args = { '--stdin', '--print-width', '140' },
+    --     },
+    --     eslint = {
+    --       command = 'eslint',
+    --       args = { '--stdin' },
+    --     },
+    --   },
+    --   notify_on_error = true,
+    --   formatters_by_ft = {
+    --     ex = { 'elixir-ls' },
+    --     exs = { 'elixir-ls' },
+    --     lua = { 'stylua' },
+    --     ruby = { 'rubocop' },
+    --     rb = { 'rubocop' },
+    --     javascript = { 'ts_ls', 'prettierd', 'prettier', stop_after_first = true },
+    --     c = { 'clangd' },
+    --     markdown = { 'markdownlint' },
+    --     html = { 'htmlbeautifier' },
+    --     erb = { 'erb_formatter' },
+    --     eruby = { 'erb_formatter' },
+    --     css = { 'cssls' },
+    --     scss = { 'cssls', 'prettier', stop_after_first = true },
+    --   },
+    -- },
   },
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
   {
