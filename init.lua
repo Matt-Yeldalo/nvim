@@ -506,4 +506,4 @@ require('lazy').setup({
   },
 })
 
-vim.cmd 'Copilot disable'
+-- vim.cmd 'Copilot disable'
