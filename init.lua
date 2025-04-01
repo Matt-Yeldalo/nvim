@@ -207,14 +207,22 @@ require('lazy').setup({
 
       local servers = {
         rubocop = {
-          cmd = { '/home/matt/.bundle/ruby/3.4.0/bin/rubocop' },
-          -- filetypes = { 'rb', 'ruby' },
+          cmd = { 'bundle', 'exec', 'rubocop', '--lsp' },
+          root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git', '.'),
+          filetypes = { 'rb', 'ruby' },
+          mason = false,
+          -- cmd = { os.getenv 'HOME' .. '/.rbenv/shims/rubocop' },
+          -- cmd = { '/home/matt/.bundle/ruby/3.4.0/bin/rubocop' },
           -- cmd = { 'bundle', 'exec', 'rubocop', '--lsp' },
           -- mason = false,
           -- root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git', '.'),
         },
         solargraph = {
-          cmd = { '/home/matt/.bundle/ruby/3.4.0/bin/solargraph' },
+          root_dir = require('lspconfig.util').root_pattern('Gemfile', '.git', '.'),
+          filetypes = { 'rb', 'ruby' },
+          mason = false,
+          -- cmd = { os.getenv 'HOME' .. '/.rbenv/shims/solargraph' },
+          -- cmd = { '/home/matt/.bundle/ruby/3.4.0/bin/solargraph' },
           -- filetypes = { 'rb', 'ruby' },
           -- mason = false,
           -- cmd = { 'bundle', 'exec', 'solargraph', 'stdio' },
@@ -304,7 +312,7 @@ require('lazy').setup({
     event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
     config = function()
-              vim.keymap.set({ 'n', 'v' }, '<leader>fi', function()
+      vim.keymap.set({ 'n', 'v' }, '<leader>fi', function()
         require('conform').format { async = true, lsp_format = 'fallback' }
       end, { desc = '[F]ormat buffer' })
 
@@ -312,8 +320,10 @@ require('lazy').setup({
         formatters = {
           rubocop = {
             cwd = require('conform.util').root_file { 'Gemfile', '.git', '.gitignore', '.editorconfig', 'package.json' },
-            -- command = os.getenv 'HOME' .. '/.rbenv/shims/rubocop',
-            command = os.getenv 'HOME' .. '/.bundle/ruby/3.2.0/bin/rubocop',
+            command = os.getenv 'HOME' .. '/.rbenv/shims/rubocop',
+            -- command = os.getenv 'HOME' .. '/.bundle/ruby/3.2.0/bin/rubocop',
+            -- command =  require('conform.util').root_file { 'Gemfile', '.git', '.gitignore', '.editorconfig', 'package.json' } .. '/.bundle/ruby/**/bin/rubocop',
+            -- command = './.bundle/ruby/**/bin/rubocop',
             -- args = { "-a", "-f", "quiet", "--stderr", "--stdin", "$FILENAME" },
             args = { '--server', '--autocorrect-all', '--stderr', '--force-exclusion', '--stdin', '$FILENAME' },
             timeout_ms = 1000,
@@ -326,8 +336,10 @@ require('lazy').setup({
           },
           erb_formatter = {
             cwd = require('conform.util').root_file { 'Gemfile', '.gitignore', '.editorconfig', 'package.json' },
+            command = os.getenv 'HOME' .. '/.rbenv/shims/erb-format',
             -- command = 'bundle exec erb-format',
-            command = os.getenv 'HOME' .. '/.bundle/ruby/3.2.0/bin/erb-format',
+            -- command = os.getenv 'HOME' .. '/.bundle/ruby/3.2.0/bin/erb-format',
+            -- command = './.bundle/ruby/*/bin/erb-format',
             -- command = os.getenv 'HOME' .. '/.rbenv/shims/erb-format',
             args = { '--stdin', '--print-width', '140' },
           },
