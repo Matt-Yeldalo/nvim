@@ -333,6 +333,7 @@ require('lazy').setup({
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
       local servers = {
+        r_language_server = {},
         elixirls = {
           cmd = { 'elixir-ls' },
           filetypes = { 'elixir', 'eelixir', 'heex', 'surface', 'ex', 'exs' },
