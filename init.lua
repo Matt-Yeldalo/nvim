@@ -396,7 +396,7 @@ require('lazy').setup({
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
       })
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+      -- require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
         handlers = {
@@ -443,7 +443,8 @@ require('lazy').setup({
         lua = { 'stylua' },
         ruby = { 'rubocop' },
         rb = { 'rubocop' },
-        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        -- javascript = { { 'prettierd', 'prettier' } },
+        javascript = { 'ts_ls', 'prettierd', 'prettier', stop_after_first = true },
         c = { 'clangd' },
         markdown = { 'markdownlint' },
         html = { 'htmlbeautifier' },
@@ -554,6 +555,7 @@ require('lazy').setup({
           end, { 'i', 's' }),
         },
         sources = {
+          { name = 'copilot', group_index = 2 },
           {
             name = 'lazydev',
             -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
