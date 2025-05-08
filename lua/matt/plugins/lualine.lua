@@ -341,9 +341,9 @@ return {
       tabline = {
         lualine_a = {},
         -- lualine_b = { mode(), buffers },
-        lualine_b = { mode() },
+        lualine_b = { mode(), project },
         lualine_c = {},
-        lualine_x = { project, diff_icons, branch },
+        lualine_x = { diff_icons, branch },
         lualine_y = { searchcount, selectioncount },
         lualine_z = {},
       },

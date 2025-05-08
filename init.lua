@@ -333,26 +333,6 @@ require('lazy').setup({
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
       local servers = {
-        r_language_server = {},
-        elixirls = {
-          cmd = { 'elixir-ls' },
-          filetypes = { 'elixir', 'eelixir', 'heex', 'surface', 'ex', 'exs' },
-        },
-        tailwindcss = {
-          filetypes = { 'eruby', 'erb' },
-          settings = {
-            tailwindCSS = {
-              experimental = {
-                classRegex = {
-                  -- Regex for Tailwind in Rails helpers
-                  [[class: ["']([^"']*)["']], -- Match class: "text-blue-500"
-                  [[content_tag\s*:\w+.*class:\s*["']([^"']*)["']], -- Match content_tag helper
-                  [[tag\.\w+\s*.*class:\s*["']([^"']*)["']], -- Match tag helper
-                },
-              },
-            },
-          },
-        },
         solargraph = {
           filetypes = { 'rb', 'ruby' },
           mason = false,
@@ -375,6 +355,10 @@ require('lazy').setup({
               warn_style = true,
             },
           },
+        },
+        elixirls = {
+          cmd = { 'elixir-ls' },
+          filetypes = { 'elixir', 'eelixir', 'heex', 'surface', 'ex', 'exs' },
         },
         clangd = {},
         ts_ls = {},
