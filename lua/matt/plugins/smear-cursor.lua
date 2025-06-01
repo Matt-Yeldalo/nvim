@@ -1,8 +1,8 @@
 return {
-  'smear-cursor.nvim',
+  'sphamba/smear-cursor.nvim',
   event = 'VeryLazy',
   config = function()
-    require('smear-cursor').setup {
+    require('smear_cursor').setup {
       cursor = {
         enabled = true,
         type = 'horizontal',
