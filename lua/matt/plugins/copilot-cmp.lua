@@ -7,12 +7,11 @@ return {
           normal = '',
           insert = '',
           callback = function()
-            copilot.reset()
+            require('copilot').reset()
           end,
         },
       },
     }
-    -- Copilot autosuggestions
     vim.g.copilot_no_tab_map = true
     vim.g.copilot_hide_during_completion = false
     vim.g.copilot_proxy_strict_ssl = false
