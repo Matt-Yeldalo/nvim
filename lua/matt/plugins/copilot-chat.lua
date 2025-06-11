@@ -1,21 +1,20 @@
 return {
-  -- "CopilotC-Nvim/CopilotChat.nvim",
-  -- branch = "main",
-  -- dependencies = {
-  --   { "github/copilot.vim" }, -- required
-  --   { "nvim-lua/plenary.nvim" }, -- required
-  -- },
-  -- config = function()
-  --   require("CopilotChat").setup({
-  --     debug = true, -- optional: enables log output
-  --     show_help = true,
-  --     prompts = {
-  --       Explain = "Explain how this code works.",
-  --       Fix = "Fix this code.",
-  --       Review = "Review this code.",
-  --       Tests = "Suggest tests for this code.",
-  --       Refactor = "Refactor this code to improve clarity."
-  --     },
-  --   })
-  -- end
+  "CopilotC-Nvim/CopilotChat.nvim",
+  branch = "main",
+  dependencies = {
+    { "zbirenbaum/copilot.lua" }, -- required
+    { "nvim-lua/plenary.nvim" }, -- required
+  },
+  config = function()
+    require("CopilotChat").setup({
+      show_help = true,
+      prompts = {
+        Explain = "Explain how this code works.",
+        Fix = "Fix this code.",
+        Review = "Review this code.",
+        Tests = "Suggest tests for this code.",
+        Refactor = "Refactor this code to improve clarity."
+      },
+    })
+  end
 }
