@@ -6,7 +6,7 @@ return {
   priority = 1000,
   config = function()
     require('onedark').setup {
-      style = 'deep', -- deep = dark + clear contrast
+      style = 'darker',
       transparent = trans,
       term_colors = true,
       ending_tildes = false,
@@ -15,10 +15,9 @@ return {
       toggle_style_key = '<leader>ot',
       toggle_style_list = { 'dark', 'darker', 'cool', 'warm', 'warmer', 'deep', 'light' },
 
-      -- Code style optimized for readability
       code_style = {
         comments = 'italic',
-        keywords = 'bold', -- bold instead of italic for clearer reading
+        keywords = 'bold',
         functions = 'bold',
         strings = 'none',
         variables = 'none',
@@ -27,39 +26,47 @@ return {
       lualine = { transparent = trans },
       diagnostics = { darker = true, undercurl = true, background = true },
 
-      -- Adjusted, high-contrast palette
       colors = {
-        green  = '#a3d38b', -- subtle, softer green
-        purple = '#c291f4', -- readable soft-magenta
-        cyan   = '#63d3e3', -- brighter cyan
-        blue   = '#61afef', -- classic readable blue
-        yellow = '#ffd97a', -- slightly brighter yellow for strings
-        red    = '#ff6c75', -- vivid but readable red
+        green = '#a3d38b',
+        purple = '#c291f4',
+        cyan = '#63d3e3',
+        blue = '#61afef',
+        yellow = '#ffd97a',
+        red = '#ff6c75',
         orange = '#d19a66',
       },
 
       highlights = {
-        -- Keywords: bold soft-magenta
+        -- Core keywords & flow control
         ['@keyword'] = { fg = '$purple', style = 'bold' },
-        -- Return, break, continue stand out
         ['@keyword.return'] = { fg = '$purple', style = 'bold,underline' },
-        -- Imports/includes: bold blue
-        ['@include'] = { fg = '$blue', style = 'bold' },
-        -- Functions and methods: bold bright blue
+
+        -- Functions and methods
         ['@function'] = { fg = '$blue', style = 'bold' },
         ['@function.call'] = { fg = '$blue', style = 'bold' },
-        -- Variables: normal fg, so they don’t distract
-        ['@variable'] = { fg = '$fg' },
-        -- Strings: bright yellow for clarity
-        ['@string'] = { fg = '$yellow' },
-        -- Constants & numbers: cyan pop
+
+        -- Strings & Symbols (differentiate!)
+        ['@string'] = { fg = '$yellow' }, -- "someClass"
+        ['@string.special'] = { fg = '$orange' }, -- e.g., escaped chars
+        ['@symbol'] = { fg = '$purple', style = 'bold' }, -- :full_name
+
+        -- Constants, numbers, and booleans
         ['@constant'] = { fg = '$cyan', style = 'bold' },
         ['@number'] = { fg = '$cyan' },
-        ['@type'] = { fg = '$cyan', style = 'bold' },
+        ['@boolean'] = { fg = '$cyan', style = 'bold' },
+
+        -- HTML / XML / JSX
+        ['@tag'] = { fg = '$blue', style = 'bold' },
+        ['@tag.attribute'] = { fg = '$green' }, -- class=, id=, etc
+        ['@tag.delimiter'] = { fg = '$fg' }, -- <, >
+
+        -- Variables & fields
+        ['@variable'] = { fg = '$fg' },
+        ['@field'] = { fg = '$cyan' },
+        ['@property'] = { fg = '$cyan' },
       },
     }
 
     vim.cmd('colorscheme ' .. scheme)
   end,
 }
-

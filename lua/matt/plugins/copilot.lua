@@ -3,12 +3,14 @@ return {
   cmd = 'Copilot',
   config = function()
     require('copilot').setup {
-      -- auth_provider_url = 'https://busways.ghe.com/',
-      suggestion = { enabled = true },
-      panel = { enabled = true },
-      keymap = {
-        accept = '<S-Tab>',
+      suggestion = {
+        enabled = true,
+        auto_trigger = true,
+        keymap = {
+          accept = '<S-Tab>', -- Shift+Tab to accept
+        },
       },
+      panel = { enabled = true },
     }
   end,
 }
