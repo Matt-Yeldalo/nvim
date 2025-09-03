@@ -17,10 +17,27 @@ return {
 
       code_style = {
         comments = 'italic',
-        keywords = 'bold',
+        keywords = 'italic,bold',
         functions = 'bold',
         strings = 'none',
         variables = 'none',
+      },
+
+      colors = {
+        red = '#ff6b64',
+        pink = '#eb7d8a',
+        purple = '#e68a8a',
+        orange = '#ff8f52',
+        yellow = '#f5aa57',
+        green = '#b4af71',
+        cyan = '#5ab0b0',
+        blue = '#5d8cc9',
+        fg = '#ede0c3',
+        bg0 = '#111112',
+        bg1 = '#1a1a1a',
+        bg2 = '#2b2b2b',
+        bg3 = '#383838',
+        grey = '#847569',
       },
 
       lualine = { transparent = trans },
