@@ -13,7 +13,7 @@ return {
           insert = '',
         },
       },
-      model = 'claude-3.5-sonnet',
+      model = 'claude-4-sonnet',
       show_help = true,
       prompts = {
         Explain = 'Explain how this code works.',
