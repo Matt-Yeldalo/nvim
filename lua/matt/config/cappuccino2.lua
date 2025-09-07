@@ -1,7 +1,6 @@
 return {
   {
     'catppuccin/nvim',
-    lazy = false,
     name = 'catppuccin',
     priority = 1000,
     config = function()
@@ -11,10 +10,10 @@ return {
       require('catppuccin').setup {
         custom_highlights = {
           -- Blink Menu
-          Pmenu = { bg = palette.base },
-          PmenuSel = { bg = palette.surface1, style = { 'bold' } },
-          PmenuBar = { bg = palette.surface1 },
-          BlinkCmpMenuBorder = { bg = palette.base },
+          -- Pmenu = { bg = palette.base },
+          -- PmenuSel = { bg = palette.surface1, style = { 'bold' } },
+          -- PmenuBar = { bg = palette.surface1 },
+          -- BlinkCmpMenuBorder = { bg = palette.base },
 
           -- Snacks
           SnacksNotifierInfo = { fg = palette.lavender },
@@ -36,7 +35,7 @@ return {
         },
         transparent_background = true,
         term_colors = true,
-        auto_integrations = true,
+        -- auto_integrations = true,
         integrations = {
           snacks = {
             enabled = true,
